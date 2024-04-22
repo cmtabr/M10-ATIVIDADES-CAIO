@@ -12,7 +12,7 @@ class TodoTable(base):
     priority = Column(Integer, nullable=False)
     userId = mapped_column(Integer, ForeignKey('user.userId'))
 
-    def __init__(self, task, description, status, priority, dead_line):
+    def __init__(self, task, description, status, priority):
         self.task = task
         self.description = description
         self.status = status

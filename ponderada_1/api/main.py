@@ -1,6 +1,6 @@
-from fastapi import FastAPI, Request, HTTPException, status, Depends, Response
+from fastapi import FastAPI, Request, HTTPException, status, Header, Response, Depends
 from sqlalchemy import insert, select, update, delete
-from typing import Annotated
+import json
 
 from .config.database import conn
 
@@ -11,6 +11,18 @@ from .auth.jwt_bearer import jwtBearer
 from .auth.jwt_handler import signJWT, decodeJWT
 
 app = FastAPI()
+
+async def verify_token(x_token: str = Header(...)):
+    print(f'This is the token: {x_token}')
+    if not jwtBearer.verify_jwt(jwtBearer, jwttoken=x_token):
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
+    return x_token
+
+async def verify_key(x_key: str = Header(...)):
+    print(f'This is the key: {x_key}')
+    if x_key != "token":
+        raise HTTPException(status_code=400, detail="X-Key header invalid")
+    return x_key
 
 @app.get('/')
 async def home():
@@ -31,23 +43,33 @@ async def login(username: str, password: str, response: Response):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@app.get('/api/todos')
+@app.get('/api/todos', 
+        dependencies=[Depends(verify_token), Depends(verify_key)],
+        status_code=status.HTTP_200_OK,
+        )
 async def get_todos(request: Request):
-    token: str = request.cookies.get("token")
-    if not jwtBearer.verify_jwt(token):
-        raise HTTPException(status_code=400, detail="Unauthenticated")
-    query = conn.execute(select(TodoTable))
-    result = query.fetchall()
-    todos = [todo for todo in result]
-    return todos if todos else "No todos found."
+    try:
+        token = request.headers.get("x-token")
+        userId = decodeJWT(token).get("sub")
+        query = conn.execute(select(TodoTable).where(TodoTable.userId == userId))
+        result = query.fetchall()
+        todos = [{"task": todo[1], "description": todo[2], "status": todo[3], "priority": todo[4]} for todo in result]
+        return todos
+    except Exception as e:
+        return HTTPException(status_code=400, detail=str(e))
 
-@app.get('/api/todo/{id}')
+@app.get('/api/find_todo', dependencies=[Depends(verify_token), Depends(verify_key)])
 async def get_todo(id: int):
-    query = conn.execute(select(TodoTable).where(TodoTable.todoId == id))
-    result = query.first()
-    return result
+    try: 
+        query = conn.execute(select(TodoTable).where(TodoTable.todoId == id))
+        result = query.first()
+        return {"task": result[1], "description": result[2], "status": result[3], "priority": result[4]}
+    except Exception as e:
+        return HTTPException(status_code=400, detail=str(e))
 
-@app.post('/api/create_todo')
+@app.post('/api/create_todo', 
+        dependencies=[Depends(verify_token), Depends(verify_key)],
+        status_code=status.HTTP_201_CREATED)
 async def create_todo(
     task: str,
     description: str,
@@ -55,10 +77,11 @@ async def create_todo(
     priority: int,
     request: Request
     ):
-    token = request.cookies.get("token")
+    token = request.headers.get("x-token")
     try:
         payload = decodeJWT(token)
         userId = payload.get("sub")
+        print(f"User ID: {userId}")
         new_todo = insert(TodoTable).values(
             task=task,
             description=description,
@@ -68,22 +91,20 @@ async def create_todo(
         )
         conn.execute(new_todo)
         conn.commit()
-        return status.HTTP_200_OK
+        return {"message": "Todo created successfully"}
     except Exception as e:
         return HTTPException(status_code=400, detail=str(e))
     
-@app.post('/api/update/{id}')
+@app.put('/api/update', 
+        dependencies=[Depends(verify_token), Depends(verify_key)], 
+        status_code=status.HTTP_200_OK)
 async def update_task(
     id: int,
     task: str,
     description: str,
     status: int,
-    priority: int,
-    request: Request
+    priority: int
     ):
-    token = request.cookies.get("token")
-    if not jwtBearer.verify_jwt(token):
-        raise HTTPException(status_code=400, detail="Unauthenticated")
     try:
         conn.execute(update(TodoTable).where(TodoTable.todoId == id).values(
             task=task,
@@ -92,18 +113,17 @@ async def update_task(
             priority=priority
         ))
         conn.commit()
-        return status.HTTP_302_FOUND
+        return {"message": "Todo updated successfully"}
     except Exception as e:
         return HTTPException(status_code=400, detail=str(e))
 
-@app.delete('/api/delete/{id}')
-async def delete_todo(id: int, request: Request):
-    token = request.cookies.get("token")
-    if not jwtBearer.verify_jwt(token):
-        raise HTTPException(status_code=400, detail="Unauthenticated")
+@app.delete('/api/delete', 
+            dependencies=[Depends(verify_token), Depends(verify_key)],
+            status_code=status.HTTP_200_OK)
+async def delete_todo(id: int):
     try:
         conn.execute(delete(TodoTable).where(TodoTable.todoId == id))
         conn.commit()
-        return status.HTTP_200_OK
+        return {"message": "Todo deleted successfully"}
     except Exception as e:
         return HTTPException(status_code=400, detail=str(e))

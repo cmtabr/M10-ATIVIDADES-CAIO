@@ -1,0 +1,301 @@
+_type: export
+__export_format: 4
+__export_date: 2024-04-22T05:36:56.782Z
+__export_source: insomnia.desktop.app:v8.6.1
+resources:
+  - _id: req_58bf36b420a44047822a660cd7fd747c
+    parentId: wrk_6e4b745ccfa84f0f8259f65311f2648c
+    modified: 1713764182503
+    created: 1713760127345
+    url: http://0.0.0.0:5000/api/delete
+    name: /delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters:
+      - id: pair_291b15b3634e4b35a1fe39d5123b822b
+        name: id
+        value: "1"
+        description: ""
+    headers:
+      - name: User-Agent
+        value: insomnia/8.6.1
+        id: pair_8ebd097794dd45f39228f3810a31f8fe
+      - id: pair_1b538507222d491099c4ca95ad550dba
+        name: x-key
+        value: token
+        description: ""
+      - id: pair_dda6f9f9199a43c2a288645305ad1971
+        name: x-token
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjF9.USgVde3Co83AeNIedm_qmqAkDij5nEYNz5ZYPBL84BU
+        description: ""
+    authentication: {}
+    metaSortKey: -1713760127345
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_6e4b745ccfa84f0f8259f65311f2648c
+    parentId: null
+    modified: 1713748341880
+    created: 1713748341880
+    name: API-documentation.yaml
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: req_fe53f0d4ebb844d3b095d6f9d0f6905f
+    parentId: wrk_6e4b745ccfa84f0f8259f65311f2648c
+    modified: 1713764170091
+    created: 1713759907994
+    url: http://0.0.0.0:5000/api/update
+    name: /update
+    description: ""
+    method: PUT
+    body: {}
+    parameters:
+      - id: pair_f270df575dc44868bac4c3fbecd5ccd9
+        name: id
+        value: "1"
+        description: ""
+      - id: pair_c3b55bd7edd44bd7a86b5cfe79f3745f
+        name: task
+        value: abc
+        description: ""
+      - id: pair_adfa7d3909634ac4a117d360746227c6
+        name: description
+        value: abc
+        description: ""
+      - id: pair_2c49a23f3cea4371849349ebab81490e
+        name: status
+        value: "1"
+        description: ""
+      - id: pair_c97d71c2eda74a5cb85140493a0ad862
+        name: priority
+        value: "1"
+        description: ""
+    headers:
+      - name: User-Agent
+        value: insomnia/8.6.1
+        id: pair_915e82cc6aba459db6802d2774073fb6
+      - id: pair_2b91ca6ea58f482c813e9848a5da1307
+        name: x-key
+        value: token
+        description: ""
+      - id: pair_657274f251bc451387aac2428b3e90f8
+        name: x-token
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjF9.USgVde3Co83AeNIedm_qmqAkDij5nEYNz5ZYPBL84BU
+        description: ""
+    authentication: {}
+    metaSortKey: -1713759907994
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e3888a804b804cf592e069c591a2a4b4
+    parentId: wrk_6e4b745ccfa84f0f8259f65311f2648c
+    modified: 1713761289106
+    created: 1713758596332
+    url: http://0.0.0.0:5000/api/create_todo
+    name: /create_todo
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - id: pair_ee7529c456b64b978f75708833c421f8
+        name: task
+        value: teste
+        description: ""
+      - id: pair_7aaa646d448348e69723207e6078a392
+        name: description
+        value: teste
+        description: ""
+      - id: pair_89241d4562944f76ac62969995f3942f
+        name: status
+        value: "2"
+        description: ""
+      - id: pair_1568db623a9544ccabc06f398723680c
+        name: priority
+        value: "5"
+        description: ""
+    headers:
+      - name: User-Agent
+        value: insomnia/8.6.1
+        id: pair_387ee5b772ed4ecd90ade848a967b644
+      - id: pair_9d306941f61d450ab117d210dc01c61e
+        name: x-key
+        value: token
+        description: ""
+      - id: pair_3b0f862a6ef34f07a9e16125195d92e3
+        name: x-token
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjF9.USgVde3Co83AeNIedm_qmqAkDij5nEYNz5ZYPBL84BU
+        description: ""
+    authentication: {}
+    metaSortKey: -1713758596332
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_90e39f1961e243e9893976ac9a4d86c2
+    parentId: wrk_6e4b745ccfa84f0f8259f65311f2648c
+    modified: 1713761703047
+    created: 1713758521192
+    url: http://0.0.0.0:5000/api/find_todo
+    name: /todo/{id} - list specific todo
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - id: pair_934cdaccfda0458295c0b692b95c7a1c
+        name: id
+        value: "1"
+        description: ""
+    headers:
+      - name: User-Agent
+        value: insomnia/8.6.1
+        id: pair_ad0255adeaeb4b9e8182703e29a00a78
+      - id: pair_81d5e1f56efb484e91c7f0498ba49c40
+        name: x-key
+        value: token
+        description: ""
+      - id: pair_fee758bba13349f5bbeeb430d24bc106
+        name: x-token
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjF9.USgVde3Co83AeNIedm_qmqAkDij5nEYNz5ZYPBL84BU
+        description: ""
+    authentication: {}
+    metaSortKey: -1713758521192
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6b1e17a4f4d94ab595e4ae7d4776d83d
+    parentId: wrk_6e4b745ccfa84f0f8259f65311f2648c
+    modified: 1713761096768
+    created: 1713749041757
+    url: http://0.0.0.0:5000/api/todos
+    name: "/todos - list all "
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - id: pair_bd2479f1c4d3446a8f1b0ff42dd37504
+        name: ""
+        value: ""
+        description: ""
+        disabled: true
+    headers:
+      - name: User-Agent
+        value: insomnia/8.6.1
+        id: pair_c649de50a5d7406886092e8261350dd1
+      - id: pair_452a9ac4645e446caf22b6ee3a6dcb88
+        name: x-token
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjF9.USgVde3Co83AeNIedm_qmqAkDij5nEYNz5ZYPBL84BU
+        description: ""
+      - id: pair_7bf357980f1d448c9240ce7b78f1509d
+        name: x-key
+        value: token
+        description: ""
+    authentication:
+      type: bearer
+      disabled: true
+      token: ""
+      prefix: ""
+    metaSortKey: -1713749041757
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_28e747ba22c44b3eadff49c1ab13f99d
+    parentId: wrk_6e4b745ccfa84f0f8259f65311f2648c
+    modified: 1713749035521
+    created: 1713748366211
+    url: http://0.0.0.0:5000/api/login
+    name: /login
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - id: pair_1a44e4192cbd47e7b7a31574a752ed3d
+        name: username
+        value: teste
+        description: ""
+        disabled: false
+      - id: pair_b98ce18b8a7640d3b4fac41d8f675a65
+        name: password
+        value: teste123
+        description: ""
+    headers:
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication: {}
+    metaSortKey: -1713748366211
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_0ee11242c8042a50fa099b935568246a25c7f7e6
+    parentId: wrk_6e4b745ccfa84f0f8259f65311f2648c
+    modified: 1713748341884
+    created: 1713748341884
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1713748341884
+    _type: environment
+  - _id: jar_0ee11242c8042a50fa099b935568246a25c7f7e6
+    parentId: wrk_6e4b745ccfa84f0f8259f65311f2648c
+    modified: 1713763143941
+    created: 1713748341885
+    name: Default Jar
+    cookies:
+      - key: token
+        value: "\"{'access token':
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjF9.USgVde3Co83AeNIedm\
+          _qmqAkDij5nEYNz5ZYPBL84BU'}\""
+        domain: 0.0.0.0
+        path: /
+        hostOnly: true
+        creation: 2024-04-22T01:23:23.126Z
+        lastAccessed: 2024-04-22T05:19:03.941Z
+        sameSite: lax
+        id: ec1f8eed-0a4b-49b0-947c-6548eb211d1a
+    _type: cookie_jar
+  - _id: spc_273e04e6090c4640bc9bd7681cb8cbb0
+    parentId: wrk_6e4b745ccfa84f0f8259f65311f2648c
+    modified: 1713755342263
+    created: 1713748341882
+    fileName: API-documentation.yaml
+    contents: ""
+    contentType: yaml
+    _type: api_spec
