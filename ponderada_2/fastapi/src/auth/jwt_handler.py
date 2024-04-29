@@ -1,15 +1,15 @@
+import json
 import jwt
 from decouple import config 
+import logging
 
 JWT_SECRET = config('SECRET')
 JWT_ALGORITHM = config('ALGORITHM')
 
-def token_response(token:str):
-    return {
-        "access token" : token
-    }
+def token_response(token: str):
+    return json.dumps({"access token": token})
 
-def signJWT(userId : int):
+def signJWT(userId : int) -> str:
     payload = { 
         "sub" : userId,
     }

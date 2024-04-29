@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Request, HTTPException, status, Header, Response, Depends
 from sqlalchemy import insert, select, update, delete
 import json
+from pydantic import BaseModel
+
 
 from .config.database import conn
 
@@ -10,16 +12,21 @@ from .models.user_table import UserTable
 from .auth.jwt_bearer import jwtBearer
 from .auth.jwt_handler import signJWT, decodeJWT
 
+class Todo(BaseModel):
+    id: int
+    task: str
+    description: str
+    status: int
+    priority: int
+
 app = FastAPI()
 
 async def verify_token(x_token: str = Header(...)):
-    print(f'This is the token: {x_token}')
     if not jwtBearer.verify_jwt(jwtBearer, jwttoken=x_token):
         raise HTTPException(status_code=400, detail="X-Token header invalid")
     return x_token
 
 async def verify_key(x_key: str = Header(...)):
-    print(f'This is the key: {x_key}')
     if x_key != "token":
         raise HTTPException(status_code=400, detail="X-Key header invalid")
     return x_key
@@ -37,9 +44,8 @@ async def login(username: str, password: str, response: Response):
         if not result:
             raise HTTPException(status_code=400, detail="User does not exist.")
         token = signJWT(user_id)
-        print(token)
         response.set_cookie(key="token", value=token)
-        return {"message": "Login successful"}
+        return token
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -69,24 +75,19 @@ async def get_todo(id: int):
 
 @app.post('/api/create_todo', 
         dependencies=[Depends(verify_token), Depends(verify_key)],
-        status_code=status.HTTP_201_CREATED)
-async def create_todo(
-    task: str,
-    description: str,
-    status: int,
-    priority: int,
+        status_code=status.HTTP_200_OK)
+async def create_todo(todo: Todo,
     request: Request
     ):
-    token = request.headers.get("x-token")
     try:
+        token = request.headers.get("x-token")
         payload = decodeJWT(token)
         userId = payload.get("sub")
-        print(f"User ID: {userId}")
         new_todo = insert(TodoTable).values(
-            task=task,
-            description=description,
-            status=status,
-            priority=priority,
+            task=todo.task,
+            description=todo.description,
+            status=todo.status,
+            priority=todo.priority,
             userId=userId
         )
         conn.execute(new_todo)
@@ -99,18 +100,18 @@ async def create_todo(
         dependencies=[Depends(verify_token), Depends(verify_key)], 
         status_code=status.HTTP_200_OK)
 async def update_task(
-    id: int,
-    task: str,
-    description: str,
-    status: int,
-    priority: int
+    todo: Todo,
+    request: Request
     ):
     try:
-        conn.execute(update(TodoTable).where(TodoTable.todoId == id).values(
-            task=task,
-            description=description,
-            status=status,
-            priority=priority
+        token = request.headers.get("x-token")
+        payload = decodeJWT(token)
+        userId = payload.get("sub")
+        conn.execute(update(TodoTable).where(TodoTable.todoId == todo.id).values(
+            task=todo.task,
+            description=todo.description,
+            status=todo.status,
+            priority=todo.priority
         ))
         conn.commit()
         return {"message": "Todo updated successfully"}
@@ -120,9 +121,9 @@ async def update_task(
 @app.delete('/api/delete', 
             dependencies=[Depends(verify_token), Depends(verify_key)],
             status_code=status.HTTP_200_OK)
-async def delete_todo(id: int):
+async def delete_todo(todo: Todo):
     try:
-        conn.execute(delete(TodoTable).where(TodoTable.todoId == id))
+        conn.execute(delete(TodoTable).where(TodoTable.todoId == todo.id))
         conn.commit()
         return {"message": "Todo deleted successfully"}
     except Exception as e:

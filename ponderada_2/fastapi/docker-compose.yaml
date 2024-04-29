@@ -1,12 +1,14 @@
 version: '3.9'
 
+name: goliath
+
 services: 
   backend: 
     image: cmtabr/src
     build: 
       context: ./src
       dockerfile: Dockerfile
-    container_name: API
+    container_name: FastAPI
     restart: always
     ports: 
       - "5000:5000"
@@ -16,14 +18,14 @@ services:
       database:
         condition: service_healthy
     networks:
-      - system
+      - network
 
   database:
     image: cmtabr/database
     build: 
         context: ./database
         dockerfile: Dockerfile
-    container_name: database
+    container_name: MYSQL
     ports:
       - "3306:3306"
     environment:
@@ -37,8 +39,8 @@ services:
       timeout: 5s
       retries: 3
     networks:
-      - system
+      - network
 
 networks:
-  system:
+  network:
     driver: bridge

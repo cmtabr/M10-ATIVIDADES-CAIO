@@ -23,3 +23,6 @@ CREATE TABLE IF NOT EXISTS todo (
 
 INSERT INTO user (name, email, password)
 VALUES ('teste', 'teste@teste.mail.com', 'teste123');
+
+INSERT INTO todo (task, description, status, priority, userId)
+VALUES ('Teste', 'Teste', 0, 0, 1);
