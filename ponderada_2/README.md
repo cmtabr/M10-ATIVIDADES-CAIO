@@ -33,4 +33,6 @@ docker run --name k6 --network=goliath_network --rm -i grafana/k6 run - <fastapi
 E então é só ver a magia acontecer!
 
 ## Video Demonstrativo
+[Gravação de tela de 29-04-2024 04:21:10.webm](https://github.com/cmtabr/M10-ATIVIDADES-CAIO/assets/99201276/81ce3f2f-7b57-4de1-8b9e-0ef74b7a0b23)
+
 
