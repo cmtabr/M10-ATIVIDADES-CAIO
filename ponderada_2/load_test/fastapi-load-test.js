@@ -100,5 +100,5 @@ export default function () {
         'deleted todo successfully': (resp) => resp.json('message') === 'Todo deleted successfully',
     });
 
-    // sleep(1); // Timer para não sobrecarregar o servidor
+    sleep(1); // Timer para não sobrecarregar o servidor
 }
