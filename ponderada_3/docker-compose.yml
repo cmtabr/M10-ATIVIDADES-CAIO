@@ -1,12 +1,10 @@
-version: '3.9'
-
 name: goliath
 
 services: 
   backend: 
     image: cmtabr/src
     build: 
-      context: src
+      context: api
       dockerfile: Dockerfile
     container_name: FastAPI
     restart: always
@@ -21,10 +19,7 @@ services:
       - network
 
   database:
-    image: cmtabr/database
-    build: 
-        context: database
-        dockerfile: Dockerfile
+    image: mysql:8.0.34
     container_name: MYSQL
     ports:
       - "3306:3306"
