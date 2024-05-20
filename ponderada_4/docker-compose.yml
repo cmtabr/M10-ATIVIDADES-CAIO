@@ -1,0 +1,28 @@
+name: goliath
+
+services: 
+  user: 
+    image: cmtabr/user-service
+    build: 
+      context: user_service
+      dockerfile: Dockerfile
+    command: uvicorn main:app --host 0.0.0.0 --port 5001
+    container_name: UserService
+    restart: always
+    ports:
+      - "5001:5001"
+    volumes: 
+      - ./user_service:/app
+
+  image_processor:
+    image: cmtabr/image-processor
+    build: 
+      context: image_service
+      dockerfile: Dockerfile
+    command: uvicorn main:app --host 0.0.0.0 --port 5002
+    container_name: ImageProcessor
+    restart: always
+    ports:
+      - "5002:5002"
+    volumes: 
+      - ./image_service:/app
