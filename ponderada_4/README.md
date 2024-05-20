@@ -9,3 +9,4 @@ Caio Martins de Abreu | Engenharia da Computação | 10 | 2
 Com o objetivo de atestar a habilidade do aluno em construir um aplicativo mobile simples, foi proposto a criação de um aplicativo que remove o fundo de uma imagem. O aplicativo deveria ser construído utilizando o framework Flutter e a linguagem de programação Dart, com um backend em python, utilizando o framework FastAPI e microserviços em Docker.
 
 ## Checkpoint
+![3691bb62-fd31-4ee6-b9df-78b479e0ec31](https://github.com/cmtabr/M10-ATIVIDADES-CAIO/assets/99201276/fa36bf5d-2da7-4c44-9889-992d200a5edf)
