@@ -1,0 +1,42 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import '../models/user.dart';
+
+class AuthController {
+  static Future<void> login(User user, BuildContext context) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:5001/user/login'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(user.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Falha no login')),
+      );
+    }
+  }
+
+  static Future<void> signup(User user, BuildContext context) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:5001/user/signup'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(user.toJson()),
+    );
+
+    if (response.statusCode == 201) {
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Falha no cadastro')),
+      );
+    }
+  }
+}
