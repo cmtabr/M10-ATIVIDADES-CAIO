@@ -53,17 +53,15 @@ class MyHomePageState extends State<MyHomePage> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
-          content: Container(
-            width: 20,
-            height: 20,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: Colors.blue,
-            ),
-            child: const Center(
+        return const AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
               ),
             ),
           ),
@@ -77,14 +75,41 @@ class MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: const Text(
+            'Imagem Processada',
+            style: TextStyle(
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           content: _processedImage == null
               ? const Text('Sem imagem processada.')
-              : Image.memory(_processedImage!),
+              : Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Image.memory(_processedImage!),
+                ),
           actions: <Widget>[
             TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               child: const Text('Fechar'),
               onPressed: () {
                 Navigator.of(context).pop();
+                setState(() {
+                  _processedImage = null;
+                });
               },
             ),
           ],

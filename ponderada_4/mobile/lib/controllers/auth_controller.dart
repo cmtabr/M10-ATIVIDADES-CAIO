@@ -32,7 +32,7 @@ class AuthController {
     );
 
     if (response.statusCode == 201) {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Falha no cadastro')),

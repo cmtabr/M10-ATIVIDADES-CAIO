@@ -3,15 +3,15 @@ import '../controllers/auth_controller.dart';
 import '../models/user.dart';
 
 class LoginPage extends StatelessWidget {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   LoginPage({super.key});
 
   Future<void> _login(BuildContext context) async {
-    final username = _usernameController.text;
+    final email = _emailController.text;
     final password = _passwordController.text;
-    final user = User(username: username, password: password);
+    final user = User(email: email, password: password);
     await AuthController.login(user, context);
   }
 
@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
-              controller: _usernameController,
+              controller: _emailController,
               decoration: const InputDecoration(labelText: 'Usuário'),
             ),
             TextField(
