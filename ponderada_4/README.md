@@ -18,20 +18,6 @@ Com o objetivo de atestar a habilidade do aluno em construir um aplicativo mobil
 
 
 ## Instruções para execução
-Inicializar o Sentry:
-```bash
-cd ponderada_4
-docker compose -f docker-compose-sentry.yml run --rm sentry-base config generate-secret-key
-# Pegue a chave de retorno e altere o arquivo sentry.env
-```
-
-Inicializar o Sentry:
-```bash
-docker compose -f docker-compose-sentry.yml run --rm sentry-base upgrade 
-
-docker compose -f docker-compose-sentry.yml up -d
-```
-
 Inicializar o backend:
 ```bash
 docker compose -f docker-compose-backend.yml up -d
@@ -42,3 +28,6 @@ Inicializar o app mobile:
 cd mobile
 flutter run
 ```
+
+## Versão Final
+
