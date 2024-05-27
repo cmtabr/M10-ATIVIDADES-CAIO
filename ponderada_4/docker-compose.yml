@@ -1,18 +1,23 @@
 name: goliath
 
 services: 
-  user: 
-    image: cmtabr/user-service
+  auth: 
+    image: cmtabr/auth-service
     build: 
-      context: user_service
+      context: auth_service
       dockerfile: Dockerfile
     command: uvicorn main:app --host 0.0.0.0 --port 5001
-    container_name: UserService
+    container_name: auth_service
     restart: always
     ports:
       - "5001:5001"
     volumes: 
-      - ./user_service:/app
+      - ./auth_service:/app
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - service_network
 
   image_processor:
     image: cmtabr/image-processor
@@ -20,9 +25,31 @@ services:
       context: image_service
       dockerfile: Dockerfile
     command: uvicorn main:app --host 0.0.0.0 --port 5002
-    container_name: ImageProcessor
+    container_name: image_processor_service
     restart: always
     ports:
       - "5002:5002"
     volumes: 
       - ./image_service:/app
+
+  database:
+    image: mysql:8.0.34
+    container_name: database
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: p3
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - service_network
+
+networks:
+  service_network:
+    driver: bridge
