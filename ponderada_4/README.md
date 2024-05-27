@@ -15,3 +15,30 @@ Com o objetivo de atestar a habilidade do aluno em construir um aplicativo mobil
 ![8982898a-77fa-4bbc-bd96-dfcf5ef25a41](https://github.com/cmtabr/M10-ATIVIDADES-CAIO/assets/99201276/684b2865-2bfa-4a26-b194-f7aed5415780)
 
 ![3691bb62-fd31-4ee6-b9df-78b479e0ec31](https://github.com/cmtabr/M10-ATIVIDADES-CAIO/assets/99201276/fa36bf5d-2da7-4c44-9889-992d200a5edf)
+
+
+## Instruções para execução
+Inicializar o Sentry:
+```bash
+cd ponderada_4
+docker compose -f docker-compose-sentry.yml run --rm sentry-base config generate-secret-key
+# Pegue a chave de retorno e altere o arquivo sentry.env
+```
+
+Inicializar o Sentry:
+```bash
+docker compose -f docker-compose-sentry.yml run --rm sentry-base upgrade 
+
+docker compose -f docker-compose-sentry.yml up -d
+```
+
+Inicializar o backend:
+```bash
+docker compose -f docker-compose-backend.yml up -d
+```
+
+Inicializar o app mobile:
+```bash
+cd mobile
+flutter run
+```

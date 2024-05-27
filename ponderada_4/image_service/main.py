@@ -4,11 +4,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from PIL import Image
 from rembg import remove
-import logging
 
 app = FastAPI()
-
-logging.basicConfig(level=logging.INFO)
 
 class ImageRequest(BaseModel):
     base64_image: str
