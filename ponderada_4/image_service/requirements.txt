@@ -1,10 +1,12 @@
 annotated-types==0.7.0
 anyio==4.3.0
 attrs==23.2.0
+async-timeout==4.0.3
 certifi==2024.2.2
 charset-normalizer==3.3.2
 click==8.1.7
 coloredlogs==15.0.1
+cryptography==41.0.3
 dnspython==2.6.1
 email_validator==2.1.1
 exceptiongroup==1.2.1
@@ -40,10 +42,12 @@ protobuf==5.27.0
 pydantic==2.7.1
 pydantic_core==2.18.2
 Pygments==2.18.0
+PyJWT==2.8.0
 PyMatting==1.1.12
 python-dotenv==1.0.1
 python-multipart==0.0.9
 PyYAML==6.0.1
+redis==5.0.4
 referencing==0.35.1
 rembg==2.0.57
 requests==2.32.2

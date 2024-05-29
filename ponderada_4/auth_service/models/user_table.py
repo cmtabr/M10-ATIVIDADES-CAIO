@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import DeclarativeBase
 
 metadata = MetaData()
-engine = create_engine("mysql+pymysql://admin:admin@database:3306/p3", 
+engine = create_engine("mysql+pymysql://admin:admin@mysql:3306/p3", 
                         pool_pre_ping=True, 
                         pool_recycle=3600
                     )
