@@ -17,24 +17,20 @@ class ImageController {
   
   static Future<Uint8List?> sendImage(File image) async {
     try {
-      final bytes = await image.readAsBytes(); // Use async method to read bytes
+      final bytes = await image.readAsBytes();
       final base64Image = base64Encode(bytes);
       final imageData = ImageData(base64Image: base64Image);
 
       final authId = await _getAuthId();
-      print('auth-id: $authId'); // Debugging line
       final response = await http.post(
         Uri.parse('http://10.0.2.2:3000/remove-bg'),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'accept': 'application/json',
-          'auth-id': '$authId', // Directly include authId as a string
+          'auth-id': '$authId',
         },
         body: jsonEncode(imageData.toJson()),
       );
-
-      print('Response status: ${response.statusCode}'); // Debugging line
-      print('Response body: ${response.body}'); // Debugging line
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
@@ -46,14 +42,12 @@ class ImageController {
         return null;
       }
     } catch (e) {
-      print('Exception: $e'); // Debugging line
       await _showNotification('Processing Failed', 'Não foi possível aplicar o filtro');
       return null;
     }
   }
 
   static Future<String?> _getAuthId() async {
-    print(await _storage.read(key: 'auth_id'));
     return await _storage.read(key: 'auth_id');
   }
 
