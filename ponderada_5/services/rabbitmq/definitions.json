@@ -1,0 +1,62 @@
+{
+    "users": [
+        {
+            "name": "baeldung",
+            "password_hash": "QXmxbiNN5HjA4hZJveQKqrj3AtixJc+7R7qXwHnnfXw=",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "administrator"
+        }
+    ],
+    "vhosts": [
+        {
+            "name": "/"
+        }
+    ],
+    "permissions": [
+        {
+            "user": "baeldung",
+            "vhost": "/",
+            "configure": ".*",
+            "write": ".*",
+            "read": ".*"
+        }
+    ],
+    "parameters": [],
+    "global_parameters": [
+        {
+            "name": "cluster_name",
+            "value": "rabbit@localhost"
+        }
+    ],
+    "policies": [],
+    "queues": [
+        {
+            "name": "test_queue",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        }
+    ],
+    "exchanges": [
+        {
+            "name": "test_exchange",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "vhost": "/",
+            "internal": false,
+            "arguments": {}
+        }
+    ],
+    "bindings": [
+        {
+            "source": "test_exchange",
+            "vhost": "/",
+            "destination": "test_queue",
+            "destination_type": "queue",
+            "routing_key": "test_key",
+            "arguments": {}
+        }
+    ]
+}
